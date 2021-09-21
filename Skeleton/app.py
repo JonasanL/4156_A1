@@ -83,7 +83,7 @@ def p2Join():
 '''
 Helper for move
 '''
-
+'''
 def check_if_connected():
     return (game.player1 == "" or game.player2 == "")
 
@@ -131,7 +131,7 @@ def check_if_win(color):
                         return True
 
     return False
-
+'''
 
 '''
 Implement '/move1' endpoint
@@ -150,27 +150,27 @@ Process Player 1's move
 @app.route('/move1', methods=['POST'])
 def p1_move():
     if game.game_result != "":
-        return jsonify(move = game.board, invalid = True, reason = "We have a winnder!", winner = game_result)
+        return jsonify(move = game.board, invalid = True, reason = "We have a winnder!", winner = game.game_result)
     if game.remaining_moves == 0:
-        return jsonify(move = game.board, invalid = True, reason = "No Move Available", winner = "")
-    if check_if_connected():
+        return jsonify(move = game.board, invalid = True, reason = "It is a draw. No Move Available", winner = "")
+    if game.check_if_connected():
         return jsonify(move = game.board, invalid = True, reason = "Some Player are not connected", winner = "")
 
-    if not check_turn("p1"):
+    if not game.check_turn("p1"):
         return jsonify(move = game.board, invalid = True, reason = "It is not your turn yet", winner = "")
 
     move = request.json['column']
 
-    if not check_valid_move(move):
+    if not game.check_valid_move(move):
         return jsonify(move = game.board, invalid = True, reason = "Invalid Move", winner = "")
 
-    position = place_move(move, game.player1)
+    position = game.place_move(move, game.player1)
 
     game.current_turn = "p2"
 
-    if check_if_win(game.player1):
+    if game.check_if_win(game.player1):
         game.game_result = "p1"
-        return jsonify(move = game.board, invalid = True, reason = "We have a winnder!", winner = game_result)
+        return jsonify(move = game.board, invalid = True, reason = "We have a winnder!", winner = game.game_result)
 
     return jsonify(move = game.board, invalid = False, winner = "")
 
@@ -182,27 +182,27 @@ Same as '/move1' but instead proccess Player 2
 @app.route('/move2', methods=['POST'])
 def p2_move():
     if game.game_result != "":
-        return jsonify(move = game.board, invalid = True, reason = "We have a winnder!", winner = game_result)
+        return jsonify(move = game.board, invalid = True, reason = "We have a winnder!", winner = game.game_result)
     if game.remaining_moves == 0:
-        return jsonify(move = game.board, invalid = True, reason = "No Move Available", winner = "")
-    if check_if_connected():
+        return jsonify(move = game.board, invalid = True, reason = "It is a draw. No Move Available", winner = "")
+    if game.check_if_connected():
         return jsonify(move = game.board, invalid = True, reason = "Some Player are not connected", winner = "")
 
-    if not check_turn("p2"):
+    if not game.check_turn("p2"):
         return jsonify(move = game.board, invalid = True, reason = "It is not your turn yet", winner = "")
 
     move = request.json['column']
 
-    if not check_valid_move(move):
+    if not game.check_valid_move(move):
         return jsonify(move = game.board, invalid = True, reason = "Invalid Move", winner = "")
 
-    place_move(move, game.player2)
+    game.place_move(move, game.player2)
 
     game.current_turn = "p1"
 
-    if check_if_win(game.player2):
+    if game.check_if_win(game.player2):
         game.game_result = "p2"
-        return jsonify(move = game.board, invalid = True, reason = "We have a winnder!", winner = game_result)
+        return jsonify(move = game.board, invalid = True, reason = "We have a winnder!", winner = game.game_result)
     
     return jsonify(move = game.board, invalid = False, winner = "")
 
