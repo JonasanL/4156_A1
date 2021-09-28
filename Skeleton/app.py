@@ -81,6 +81,13 @@ def p1_move():
     move = request.json['column']
 
     info = game.player1_move(move)
+    if len(info) < 4:
+        return jsonify(
+            move=info[0],
+            invalid=info[1],
+            winner=info[2]
+            )
+
     return jsonify(
         move=info[0],
         invalid=info[1],
@@ -99,6 +106,13 @@ def p2_move():
     move = request.json['column']
 
     info = game.player2_move(move)
+    if len(info) < 4:
+        return jsonify(
+            move=info[0],
+            invalid=info[1],
+            winner=info[2]
+            )
+
     return jsonify(
         move=info[0],
         invalid=info[1],

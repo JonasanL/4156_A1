@@ -89,7 +89,7 @@ class Gameboard():
             self.game_result = "p1"
             return (self.board, True, "We have a winner!", self.game_result)
 
-        return (self.board, False, "Next", "")
+        return (self.board, False, "")
 
     def player2_move(self, move):
         if self.game_result != "":
@@ -113,4 +113,4 @@ class Gameboard():
             self.game_result = "p2"
             return (self.board, True, "We have a winner!", self.game_result)
 
-        return (self.board, False, "Next", "")
+        return (self.board, False, "")
