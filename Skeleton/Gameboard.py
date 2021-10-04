@@ -1,3 +1,6 @@
+import json
+
+
 class Gameboard():
     def __init__(self):
         self.player1 = ""
@@ -114,3 +117,11 @@ class Gameboard():
             return (self.board, True, "We have a winner!", self.game_result)
 
         return (self.board, False, "")
+
+    def sql_to_gameboard(self, sql):
+        self.current_turn = sql[0]
+        self.board = json.loads(sql[1])
+        self.game_result = sql[2]
+        self.player1 = sql[3]
+        self.player2 = sql[4]
+        self.remaining_move = sql[5]

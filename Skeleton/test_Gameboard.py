@@ -264,3 +264,7 @@ class Test_TestGameboard(unittest.TestCase):
             game.player2_move("col4"),
             (game.board, True, "We have a winner!", game.game_result)
             )
+
+
+if __name__ == '__main__':
+    unittest.main()
