@@ -10,6 +10,7 @@ class Test_Testdbcase(unittest.TestCase):
     def test_empty_start(self):
         # Test empty start
         db.clear()
+        db.clear()
         db.init_db()
         print(db.getMove())
         self.assertEqual(db.getMove(), None)
